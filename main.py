@@ -30,15 +30,16 @@ urllib.request.urlretrieve(image_url, image_path)
 im = Image.open(image_path)
 mat = np.array(im)
 
+#   descricao           rgb                 traducao        cor
 colors = {
-    'anger':     [ 231, 76,  60  ],         # vermelho
-    'contempt':  [ 211, 84,  0   ],         # laranja escuro
-    'disgust':   [ 155, 89,  182 ],         # roxo
-    'fear':      [ 50,  50,  50  ],         # preto
-    'happiness': [ 46,  204, 113 ],         # verde
-    'neutral':   [ 255, 255, 255 ],         # branco
-    'sadness':   [ 128, 128, 128 ],         # cinza
-    'surprise':  [ 241, 196, 15  ],         # amarelo
+    'anger':     [ 231, 76,  60  ],     # raiva    | vermelho
+    'contempt':  [ 211, 84,  0   ],     # desprezo | laranja escuro
+    'disgust':   [ 155, 89,  182 ],     # aversão  | roxo
+    'fear':      [ 50,  50,  50  ],     # medo     | preto
+    'happiness': [ 46,  204, 113 ],     # alegria  | verde
+    'neutral':   [ 255, 255, 255 ],     # neutro   | branco
+    'sadness':   [ 128, 128, 128 ],     # triste   | cinza
+    'surprise':  [ 241, 196, 15  ],     # surpreso | amarelo
 }
 
 def getEmotion(emotions):
