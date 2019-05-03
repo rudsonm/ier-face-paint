@@ -35,7 +35,7 @@ colors = {
     'anger':     [ 231, 76,  60  ],     # raiva    | vermelho
     'contempt':  [ 211, 84,  0   ],     # desprezo | laranja escuro
     'disgust':   [ 155, 89,  182 ],     # aversão  | roxo
-    'fear':      [ 50,  50,  50  ],     # medo     | preto
+    'fear':      [ 100, 100, 100 ],     # medo     | preto
     'happiness': [ 46,  204, 113 ],     # alegria  | verde
     'neutral':   [ 255, 255, 255 ],     # neutro   | branco
     'sadness':   [ 128, 128, 128 ],     # triste   | cinza
