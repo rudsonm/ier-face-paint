@@ -30,7 +30,7 @@ urllib.request.urlretrieve(image_url, image_path)
 im = Image.open(image_path)
 mat = np.array(im)
 
-#   descricao           rgb                 traducao        cor
+#   descricao           rgb              traducao     cor
 colors = {
     'anger':     [ 231, 76,  60  ],     # raiva    | vermelho
     'contempt':  [ 211, 84,  0   ],     # desprezo | laranja escuro
