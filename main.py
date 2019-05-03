@@ -3,6 +3,7 @@ import json
 import urllib.request
 import numpy as np
 from PIL import Image
+import matplotlib.pyplot as plt
 
 subscription_key = open('subscription_key').read()
 assert subscription_key
@@ -33,7 +34,7 @@ colors = {
     'anger':     [ 231, 76,  60  ],         # vermelho
     'contempt':  [ 211, 84,  0   ],         # laranja escuro
     'disgust':   [ 155, 89,  182 ],         # roxo
-    'fear':      [ 0,   0,   0   ],         # preto
+    'fear':      [ 50,  50,  50  ],         # preto
     'happiness': [ 46,  204, 113 ],         # verde
     'neutral':   [ 255, 255, 255 ],         # branco
     'sadness':   [ 128, 128, 128 ],         # cinza
@@ -48,6 +49,8 @@ def getEmotion(emotions):
 def getEmotionColor(emotion):
     return np.array( colors[emotion], dtype=np.uint8 )
 
+grayIntensity = np.array([ .21, .72, .07 ])
+
 for face in faces:
     rect = face['faceRectangle']
     col1, col2 = rect['left'], rect['left'] + rect['width']
@@ -55,6 +58,12 @@ for face in faces:
     emotions = face['faceAttributes']['emotion']
     emotion = getEmotion(emotions)
     color = getEmotionColor(emotion)
-    mat[row1:row2, col1:col2] = color
+    rect = mat[row1:row2, col1:col2]
+    for i, j in np.ndindex(rect.shape[:-1]):
+        pix = rect[i][j]
+        gray = (pix * grayIntensity).sum() / 255.
+        rect[i][j] = np.array(color * gray, dtype=np.uint8)
 
-Image.fromarray(mat).show()
+Image.fromarray(mat).save('emotionfull.png')
+plt.imshow(mat)
+plt.show()
