@@ -1,3 +1,4 @@
+import io
 import requests
 import json
 import urllib.request
@@ -10,8 +11,15 @@ assert subscription_key
 
 face_api_url = 'https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/detect'
 
-image_url = 'https://s3.portalt5.com.br/imagens/familia-adams.jpg?mtime=20171224175642'
-image_extension = image_url.split('.')[-1].split('?')[0]
+# para fazer upload de imagem rápido: https://imgbb.com/
+
+image_url = 'https://i.ibb.co/HHMZGDS/Whats-App-Image-2019-05-03-at-15-54-32.jpg'
+
+image_path = image_url.split('/')[-1].split('?')[0]
+urllib.request.urlretrieve(image_url, image_path)
+
+im = Image.open(image_path)
+mat = np.array(im)
 
 headers = { 'Ocp-Apim-Subscription-Key': subscription_key }
     
@@ -23,12 +31,7 @@ params = {
 
 response = requests.post(face_api_url, params=params, headers=headers, json={"url": image_url})
 faces = response.json()
-print(faces)
-image_path = 'xxx.' + image_extension
-urllib.request.urlretrieve(image_url, image_path)
-
-im = Image.open(image_path)
-mat = np.array(im)
+print('faces:', faces)
 
 #   descricao           rgb              traducao     cor
 colors = {
