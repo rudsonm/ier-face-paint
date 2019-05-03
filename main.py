@@ -48,7 +48,7 @@ def getEmotion(emotions):
     return list(emotions.keys())[index]
 
 def getEmotionColor(emotion):
-    return np.array( colors[emotion], dtype=np.uint8 )
+    return np.array( colors['fear'], dtype=np.uint8 )
 
 grayIntensity = np.array([ .21, .72, .07 ])
 
