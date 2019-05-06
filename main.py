@@ -5,6 +5,7 @@ import urllib.request
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
+import math
 
 subscription_key = open('subscription_key').read()
 assert subscription_key
@@ -55,6 +56,9 @@ def getEmotionColor(emotion):
 
 grayIntensity = np.array([ .21, .72, .07 ])
 
+def euclidianDistance(p1, p2):
+    return math.sqrt( (p1[0]-p2[0])**2 + (p1[1]-p2[1])**2 )
+
 for face in faces:
     rect = face['faceRectangle']
     col1, col2 = rect['left'], rect['left'] + rect['width']
@@ -62,11 +66,31 @@ for face in faces:
     emotions = face['faceAttributes']['emotion']
     emotion = getEmotion(emotions)
     color = getEmotionColor(emotion)
+    # increased faces square
+    row1 -= 10
+    row2 += 10
+    col1 -= 10
+    col2 += 10
     rect = mat[row1:row2, col1:col2]
+    center = ( (col2-col1)/2, (row2-row1)/2 )
+    maxDistance = max(
+        euclidianDistance( center, (col2-col1, center[1]) ),
+        euclidianDistance( center, (center[0], row2-row1) ),
+    )
     for i, j in np.ndindex(rect.shape[:-1]):
         pix = rect[i][j]
         gray = (pix * grayIntensity).sum() / 255.
-        rect[i][j] = np.array(color * gray, dtype=np.uint8)
+        colored = np.array(color * gray, dtype=np.uint8)
+        distance = euclidianDistance( center, (j,i) )
+        prcDist = max(0, distance / maxDistance - 0.0)
+        finalColor = pix * prcDist + colored * (1-prcDist)
+        rect[i][j] = np.array(finalColor, dtype=np.uint8)
+    # square on faces
+    # b = border = 2
+    # mat[row1:row1+b, col1:col2  ] = color
+    # mat[row2:row2+b, col1:col2  ] = color
+    # mat[row1:row2,   col1:col1+b] = color
+    # mat[row1:row2,   col2:col2+b] = color
 
 Image.fromarray(mat).save('emotionfull.png')
 plt.imshow(mat)
