@@ -82,7 +82,7 @@ for face in faces:
         gray = (pix * grayIntensity).sum() / 255.
         colored = np.array(color * gray, dtype=np.uint8)
         distance = euclidianDistance( center, (j,i) )
-        prcDist = min(1, max(0, distance / maxDistance - 0.0))
+        prcDist = min(1, max(0, distance / maxDistance - 0.2))
         finalColor = pix * prcDist + colored * (1-prcDist)
         rect[i][j] = np.array(finalColor, dtype=np.uint8)
     # square on faces
