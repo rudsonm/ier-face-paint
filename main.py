@@ -14,7 +14,7 @@ face_api_url = 'https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/detect
 
 # para fazer upload de imagem rápido: https://imgbb.com/
 
-image_url = 'https://i.ibb.co/HHMZGDS/Whats-App-Image-2019-05-03-at-15-54-32.jpg'
+image_url = 'http://4.bp.blogspot.com/--u7Fho2C3K8/UhIKepmpzqI/AAAAAAAAC7A/lgirTyldrHc/s1600/flo.jpg'
 
 image_path = image_url.split('/')[-1].split('?')[0]
 urllib.request.urlretrieve(image_url, image_path)
@@ -36,14 +36,14 @@ print('faces:', faces)
 
 #   descricao           rgb              traducao     cor
 colors = {
-    'anger':     [ 231, 76,  60  ],     # raiva    | vermelho
-    'contempt':  [ 211, 84,  0   ],     # desprezo | laranja escuro
-    'disgust':   [ 155, 89,  182 ],     # aversão  | roxo
-    'fear':      [ 100, 100, 100 ],     # medo     | preto
-    'happiness': [ 46,  204, 113 ],     # alegria  | verde
+    'anger':     [ 213, 0, 0 ],         # raiva    | vermelho
+    'contempt':  [ 255, 109, 0 ],       # desprezo | laranja escuro
+    'disgust':   [ 98, 0, 234 ],        # nojo     | roxo
+    'fear':      [ 0, 77, 64 ],         # medo     | preto
+    'happiness': [ 255, 234, 0 ],       # alegria  | verde
     'neutral':   [ 255, 255, 255 ],     # neutro   | branco
-    'sadness':   [ 128, 128, 128 ],     # triste   | cinza
-    'surprise':  [ 241, 196, 15  ],     # surpreso | amarelo
+    'sadness':   [ 41, 98, 255 ],       # triste   | cinza
+    'surprise':  [ 0, 229, 255  ],      # surpreso | amarelo
 }
 
 def getEmotion(emotions):
@@ -73,7 +73,7 @@ for face in faces:
     col2 += 10
     rect = mat[row1:row2, col1:col2]
     center = ( (col2-col1)/2, (row2-row1)/2 )
-    maxDistance = max(
+    maxDistance = min(
         euclidianDistance( center, (col2-col1, center[1]) ),
         euclidianDistance( center, (center[0], row2-row1) ),
     )
@@ -82,7 +82,7 @@ for face in faces:
         gray = (pix * grayIntensity).sum() / 255.
         colored = np.array(color * gray, dtype=np.uint8)
         distance = euclidianDistance( center, (j,i) )
-        prcDist = max(0, distance / maxDistance - 0.0)
+        prcDist = min(1, max(0, distance / maxDistance - 0.0))
         finalColor = pix * prcDist + colored * (1-prcDist)
         rect[i][j] = np.array(finalColor, dtype=np.uint8)
     # square on faces

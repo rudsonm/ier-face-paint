@@ -1,0 +1,22 @@
+Para Robert Plutchik, que desenvolveu a teoria psicoevolucionária das emoções.
+Revela a crença em oito emoções primárias que dão origem a outras:
+Raiva, medo, tristeza, nojo, surpresa, curiosidade, aceitação e alegria.
+
+Ao utilizar e escolher determinadas cores e tons, 
+é possível criar no público ideias prévias acerca do produto, empresa ou negócio.
+
+Raiva: Vermelho rgb(213,0,0)
+
+Desprezo: Laranja rgb(255,109,0)
+
+Enojado: Roxo rgb(98,0,234)
+
+Medo: Verde rgb(0,77,64)
+
+Alegria: Amarelo rgb(255,234,0)
+
+Neutro: Cinza rgb(97,97,97)
+
+Triste: Azul rgb(41,98,255)
+
+Surpreso: Azul claro rgb(0,229,255)
